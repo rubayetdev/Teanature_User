@@ -17,20 +17,20 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap"
         rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
+
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="{{asset('lib/animate/animate.min.css')}}" rel="stylesheet">
-    <link href="{{asset('lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
-
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,23 +53,6 @@
         li {
             font-family: 'Space Grotesk', sans-serif;
         }
-        .badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            display: inline-block;
-            padding: 0.25em 0.4em;
-            font-size: 75%;
-            font-weight: 700;
-            line-height: 1;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: baseline;
-            border-radius: 50%;
-            background-color: #007bff;
-            color: #fff;
-        }
-
     </style>
 
 </head>
@@ -84,15 +67,15 @@
 
 
 <!-- Navbar Start -->
-<marquee behavior="scroll" direction="left" style="font-family: Space Grotesk, sans-serif; color:@if(isset($mar->color)) {{$mar->color}} @endif ">@if(isset($mar->text)) {{$mar->text}} @endif
+<marquee behavior="scroll" direction="left" style="font-family: Space Grotesk, sans-serif; color:@if(isset($text->color)) {{$text->color}} @endif ">@if(isset($text->text)) {{$text->text}} @endif
 </marquee>
 
 <!-- Navbar Start -->
 <div class="container-fluid bg-white sticky-top">
     <div class="container">
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
-            <a href="{{route('depo-welcome',['id'=>$info->id])}}" class="navbar-brand">
-                <img class="img-fluid" src="{{asset('img/logo.png')}}" alt="Logo">
+            <a href="index.html" class="navbar-brand">
+                <img class="img-fluid" src="img/logo.png" alt="Logo">
             </a>
             <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
                     data-bs-target="#navbarCollapse">
@@ -101,35 +84,35 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto">
 
-                    <a href="{{route('depo-welcome',['id'=>$info->id])}}" class="nav-item nav-link">Home</a>
-                    <a href="{{route('depo-product',['id'=>$info->id])}}" class="nav-item nav-link">Products</a>
-                    <a href="{{route('depo-stores',['id'=>$info->id])}}" class="nav-item nav-link">Store</a>
+                    <a href="{{route('home')}}" class="nav-item nav-link ">Home</a>
+                    <a href="{{route('products')}}" class="nav-item nav-link">Products</a>
+                    <a href="{{route('store')}}" class="nav-item nav-link">Store</a>
+
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Explore</a>
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Explore</a>
                         <div class="dropdown-menu bg-light rounded-0 m-0">
-{{--                            <a href="{{route('depo-features',['id'=>$info->id])}}" class="dropdown-item">Features</a>--}}
-                            <a href="{{route('depo-abouts',['id'=>$info->id])}}" class="dropdown-item">About</a>
-{{--                            <a href="{{route('depo-stores',['id'=>$info->id])}}" class="dropdown-item">Store</a>--}}
-                            <a href="{{route('depo-blogList',['id'=>$info->id])}}" class="dropdown-item">Blog Article</a>
-                            <a href="{{route('depo-contacts',['id'=>$info->id])}}" class="dropdown-item">Contact</a>
-                            <a href="{{route('depo-testimonials',['id'=>$info->id])}}" class="dropdown-item">Testimonial</a>
-{{--                            <a href="{{route('depo-pages',['id'=>$info->id])}}" class="dropdown-item">404 Page</a>--}}
+{{--                            <a href="{{route('feature')}}" class="dropdown-item">Features</a>--}}
+                            <a href="{{route('about')}}" class="dropdown-item">About</a>
+                            {{--                                <a href="{{route('store')}}" class="dropdown-item">Store</a>--}}
+                            <a href="{{route('blog-list')}}" class="dropdown-item active">Blog Article</a>
+                            <a href="{{route('contact')}}" class="dropdown-item">Contact</a>
+                            <a href="{{route('testimonial')}}" class="dropdown-item">Testimonial</a>
+{{--                            <a href="{{route('page')}}" class="dropdown-item">404 Page</a>--}}
                         </div>
                     </div>
 
 
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{$info->owner_name}}</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">log in</a>
                         <div class="dropdown-menu bg-light rounded-0 m-0">
-                            <a href="{{route('depo-my_profile',['id'=>$info->id])}}" class="dropdown-item">My Profile</a>
-                            <a href="{{route('depo-order_history',['id'=>$info->id])}}" class="dropdown-item">Order History</a>
-                            <a href="{{route('logout')}}" class="dropdown-item">Logout</a>
+                            <a href="{{route('login')}}" class="dropdown-item">As Customer</a>
+                            <a href="{{route('depo-login')}}" class="dropdown-item">As Depo</a>
                         </div>
                     </div>
 
                 </div>
                 <div class="border-start ps-4">
-                    <a href="{{route('depo-cart',['id'=>$info->id])}}" class="btn btn-sm p-0"><i class="fa-solid fa-cart-shopping"><span class="badge bg-primary">{{$count}}</span></i></a>
+                    <a href="{{route('cart.view')}}" class="btn btn-sm p-0"><i class="fa-solid fa-cart-shopping"><span class="badge bg-primary"></span></i></a>
                 </div>
             </div>
         </nav>
@@ -141,12 +124,12 @@
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
-        <h1 class="display-2 text-dark mb-4 animated slideInDown">Cart</h1>
+        <h1 class="display-2 text-dark mb-4 animated slideInDown">Our Blogs</h1>
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Products</a></li>
-                <li class="breadcrumb-item text-dark" aria-current="page">Cart</li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item text-dark" aria-current="page">Blogs</li>
             </ol>
         </nav>
     </div>
@@ -158,92 +141,33 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="row g-5">
-            <div class="col-lg-12 mt-5">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2 class="mb-4">Your Cart</h2>
-                    <h5 class="total-cart-price" style="font-weight: bolder">Total Price: $100</h5> <!-- Moved outside the table -->
-                </div>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
-                        <th scope="col">Total Price</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($order as $orders)
-                        <form action="{{route('update_cart')}}" method="post">
-                            @csrf
-                            <input type="hidden" name="id" value="{{$orders->orders_id}}"/>
-                            <input type="hidden" name="prod" value="{{$orders->product_id}}"/>
-                            <input type="hidden" name="role" value="depo"/>
-                        <tr>
-                            <td>{{$orders->name}}</td>
-                            <td>{{$orders->cartoonprice}}</td>
-                            <td>
-                                <input type="number" class="form-control quantity" name="quantity" value="{{$orders->quantity}}" min="1" max="10">
-                            </td>
-                            <td>
-                                <button type="submit" class="btn btn-primary update-btn">Update</button>
-                            </td>
-                            <td>
-                                <a href="{{route('delete_cart',['id'=>$orders->orders_id])}}" class="btn btn-secondary delete-btn">Delete</a>
-                            </td>
-                            <td class="total-price">{{$orders->total_price}}</td>
-                        </tr>
-                        </form>
-                    @endforeach
-                    <!-- Add more rows for additional products -->
-                    </tbody>
-                </table>
-                <div class="row justify-content-end">
-                    <div class="col-auto">
-                        <a href="{{route('depo-checkout',['id'=>$info->id])}}" class="btn btn-success checkout-btn">Checkout</a>
+            @foreach($blogs as $blog)
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="blog-item bg-light rounded overflow-hidden">
+{{--                        <div class="blog-img position-relative overflow-hidden">--}}
+{{--                            <img class="img-fluid" src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}">--}}
+{{--                            <a href="{{ route('blogs.show', $blog->id) }}" class="position-absolute top-0 start-0 bg-primary text-white rounded-end m-4 py-2 px-4">{{ $blog->category }}</a>--}}
+{{--                        </div>--}}
+                        <div class="p-4">
+                            <h4 class="mb-3">{{ $blog->title }}</h4>
+{{--                            <p>{!! Str::limit($blog->slug, 150) !!}</p>--}}
+                            <a href="{{route('blog',['id'=>$blog->id])}}" class="text-uppercase">Read More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                        <div class="d-flex justify-content-between border-top p-4">
+{{--                            <div class="d-flex align-items-center">--}}
+{{--                                <img class="rounded-circle me-2" src="{{ asset('storage/' . $blog->author->avatar) }}" width="40" height="40" alt="{{ $blog->author->name }}">--}}
+{{--                                <small>{{ $blog->author->name }}</small>--}}
+{{--                            </div>--}}
+                            <div class="d-flex align-items-center">
+                                <small><i class="far fa-calendar-alt text-primary me-2"></i>{{ \Carbon\Carbon::parse($blog->created_at)->format('M d, Y') }}</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
-
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const quantityInputs = document.querySelectorAll('.quantity');
-        const totalPrices = document.querySelectorAll('.total-price');
-        const updateButtons = document.querySelectorAll('.update-btn');
-        const deleteButtons = document.querySelectorAll('.delete-btn');
-        const totalCartPrice = document.querySelector('.total-cart-price');
-
-        updateTotalCartPrice();
-
-        updateButtons.forEach((button, index) => {
-            button.addEventListener('click', () => {
-                const quantity = parseInt(quantityInputs[index].value);
-                const price = 10; // Replace with your actual product price
-                const totalPrice = quantity * price;
-                totalPrices[index].textContent = `৳৳{totalPrice}`;
-                updateTotalCartPrice();
-            });
-        });
-
-        function updateTotalCartPrice() {
-            let total = 0;
-            totalPrices.forEach(price => {
-                total += parseInt(price.textContent.replace('৳', ''));
-            });
-            totalCartPrice.textContent = `Total Price: ৳${total}`;
-        }
-    });
-</script>
-
-
-
 <!-- Article End -->
 
 
@@ -325,13 +249,14 @@
 <!-- JavaScript Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{asset('lib/wow/wow.min.js')}}"></script>
-<script src="{{asset('lib/easing/easing.min.js')}}"></script>
-<script src="{{asset('lib/waypoints/waypoints.min.js')}}"></script>
-<script src="{{asset('lib/owlcarousel/owl.carousel.min.js')}}"></script>
+<script src="lib/wow/wow.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
 <!-- Template Javascript -->
-<script src="{{asset('js/main.js')}}"></script>
+<script src="js/main.js"></script>
 </body>
 
 </html>
+

@@ -17,7 +17,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap"
         rel="stylesheet">
-
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -25,7 +25,7 @@
     <!-- Libraries Stylesheet -->
     <link href="{{asset('lib/animate/animate.min.css')}}" rel="stylesheet">
     <link href="{{asset('lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
+
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
 
@@ -53,6 +53,7 @@
         li {
             font-family: 'Space Grotesk', sans-serif;
         }
+
         .badge {
             position: absolute;
             top: -5px;
@@ -69,7 +70,6 @@
             background-color: #007bff;
             color: #fff;
         }
-
     </style>
 
 </head>
@@ -84,15 +84,15 @@
 
 
 <!-- Navbar Start -->
-<marquee behavior="scroll" direction="left" style="font-family: Space Grotesk, sans-serif;color: @if(isset($mar->color)){{$mar->color}}@endif">@if(isset($mar->text)){{$mar->text}}@endif
+<marquee behavior="scroll" direction="left" style="font-family: Space Grotesk, sans-serif; color:@if(isset($mar->color)) {{$mar->color}} @endif ">@if(isset($mar->text)) {{$mar->text}} @endif
 </marquee>
 
 <!-- Navbar Start -->
 <div class="container-fluid bg-white sticky-top">
     <div class="container">
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
-            <a href="{{route('welcome',['id'=>$info->id])}}" class="navbar-brand">
-                <img class="img-fluid" src="img/logo.png" alt="Logo">
+            <a href="{{route('depo-welcome',['id'=>$info->id])}}" class="navbar-brand">
+                <img class="img-fluid" src="{{asset('img/logo.png')}}" alt="Logo">
             </a>
             <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
                     data-bs-target="#navbarCollapse">
@@ -101,35 +101,35 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto">
 
-                    <a href="{{route('welcome',['id'=>$info->id])}}" class="nav-item nav-link ">Home</a>
-                    <a href="{{route('product',['id'=>$info->id])}}" class="nav-item nav-link">Products</a>
-                    <a href="{{route('stores',['id'=>$info->id])}}" class="nav-item nav-link">Store</a>
+                    <a href="{{route('depo-welcome',['id'=>$info->id])}}" class="nav-item nav-link ">Home</a>
+                    <a href="{{route('depo-product',['id'=>$info->id])}}" class="nav-item nav-link">Products</a>
+                    <a href="{{route('depo-stores',['id'=>$info->id])}}" class="nav-item nav-link">Store</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Explore</a>
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Explore</a>
                         <div class="dropdown-menu bg-light rounded-0 m-0">
-{{--                            <a href="{{route('features',['id'=>$info->id])}}" class="dropdown-item">Features</a>--}}
-                            <a href="{{route('abouts',['id'=>$info->id])}}" class="dropdown-item">About</a>
-{{--                            <a href="{{route('stores',['id'=>$info->id])}}" class="dropdown-item">Store</a>--}}
-                            <a href="{{route('Listblog',['id'=>$info->id])}}" class="dropdown-item">Blog Article</a>
-                            <a href="{{route('contacts',['id'=>$info->id])}}" class="dropdown-item">Contact</a>
-                            <a href="{{route('testimonials',['id'=>$info->id])}}" class="dropdown-item">Testimonial</a>
-{{--                            <a href="{{route('pages',['id'=>$info->id])}}" class="dropdown-item">404 Page</a>--}}
+                            {{--                                <a href="{{route('depo-features',['id'=>$info->id])}}" class="dropdown-item">Features</a>--}}
+                            <a href="{{route('depo-abouts',['id'=>$info->id])}}" class="dropdown-item">About</a>
+                            {{--                                <a href="{{route('depo-stores',['id'=>$info->id])}}" class="dropdown-item">Store</a>--}}
+                            <a href="{{route('depo-blogList',['id'=>$info->id])}}" class="dropdown-item active">Blog Article</a>
+                            <a href="{{route('depo-contacts',['id'=>$info->id])}}" class="dropdown-item">Contact</a>
+                            <a href="{{route('depo-testimonials',['id'=>$info->id])}}" class="dropdown-item">Testimonial</a>
+                            {{--                                <a href="{{route('depo-pages',['id'=>$info->id])}}" class="dropdown-item">404 Page</a>--}}
                         </div>
                     </div>
 
 
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">{{$info->name}}</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{$info->owner_name}}</a>
                         <div class="dropdown-menu bg-light rounded-0 m-0">
-                            <a href="{{route('my_profile',['id'=>$info->id])}}" class="dropdown-item active">My Profile</a>
-                            <a href="{{route('order_history',['id'=>$info->id])}}" class="dropdown-item">Order History</a>
+                            <a href="{{route('depo-my_profile',['id'=>$info->id])}}" class="dropdown-item">My Profile</a>
+                            <a href="{{route('depo-order_history',['id'=>$info->id])}}" class="dropdown-item">Order History</a>
                             <a href="{{route('logout')}}" class="dropdown-item">Logout</a>
                         </div>
                     </div>
 
                 </div>
                 <div class="border-start ps-4">
-                    <a href="{{route('cart',['id'=>$info->id])}}" class="btn btn-sm p-0"><i class="fa-solid fa-cart-shopping"><span class="badge bg-primary">{{$count}}</span></i></a>
+                    <a href="{{route('depo-cart',['id'=>$info->id])}}" class="btn btn-sm p-0"><i class="fa-solid fa-cart-shopping"><span class="badge bg-primary">{{$count}}</span></i></a>
                 </div>
             </div>
         </nav>
@@ -141,12 +141,12 @@
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
-        <h1 class="display-2 text-dark mb-4 animated slideInDown">My Profile</h1>
+        <h1 class="display-2 text-dark mb-4 animated slideInDown">Acticle</h1>
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">My Profile</a></li>
-                <li class="breadcrumb-item text-dark" aria-current="page">Account Settings</li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item text-dark" aria-current="page">Acticle</li>
             </ol>
         </nav>
     </div>
@@ -157,116 +157,34 @@
 <!-- Article Start -->
 <div class="container-xxl py-5">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <!-- User Information Form -->
-                <div class="card mb-3">
-                    <div class="card-header bg-primary text-white">
-                        User Information
-                    </div>
-                    <div class="card-body">
-                        <!-- User Information Form -->
-                        <form action="{{route('upload_user_data')}}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <input type="text" name="id" value="{{$info->id}}" />
-                            <!-- Name Input -->
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name:</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{$info->name}}">
+        <div class="row g-5">
+            @foreach($blogs as $blog)
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="blog-item bg-light rounded overflow-hidden">
+                        {{--                        <div class="blog-img position-relative overflow-hidden">--}}
+                        {{--                            <img class="img-fluid" src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}">--}}
+                        {{--                            <a href="{{ route('blogs.show', $blog->id) }}" class="position-absolute top-0 start-0 bg-primary text-white rounded-end m-4 py-2 px-4">{{ $blog->category }}</a>--}}
+                        {{--                        </div>--}}
+                        <div class="p-4">
+                            <h4 class="mb-3">{{ $blog->title }}</h4>
+                            {{--                            <p>{!! Str::limit($blog->slug, 150) !!}</p>--}}
+                            <a href="{{route('depo-blogs',['id'=>$info->id,'blog'=>$blog->id])}}" class="text-uppercase">Read More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                        <div class="d-flex justify-content-between border-top p-4">
+                            {{--                            <div class="d-flex align-items-center">--}}
+                            {{--                                <img class="rounded-circle me-2" src="{{ asset('storage/' . $blog->author->avatar) }}" width="40" height="40" alt="{{ $blog->author->name }}">--}}
+                            {{--                                <small>{{ $blog->author->name }}</small>--}}
+                            {{--                            </div>--}}
+                            <div class="d-flex align-items-center">
+                                <small><i class="far fa-calendar-alt text-primary me-2"></i>{{ \Carbon\Carbon::parse($blog->created_at)->format('M d, Y') }}</small>
                             </div>
-                            <!-- Email Input -->
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{$info->email}}">
-                            </div>
-                            <!-- Phone Input -->
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Phone:</label>
-                                <input type="text" class="form-control" id="phone" name="phone" value="{{$info->phone}}">
-                            </div>
-                            <!-- Address Input -->
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Address:</label>
-                                <input type="text" class="form-control" id="address" name="address" value="{{$info->address}}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="address" class="form-label">City:</label>
-                                <input type="text" class="form-control" id="address" name="city" value="{{$info->distric}}">
-                            </div>
-                            <!-- Profile Picture Upload -->
-                            <div class="mb-3">
-                                <label for="profile_picture" class="form-label">Profile Picture:</label>
-                                <input type="file" class="form-control" id="profile_picture" name="profile_picture">
-                            </div>
-                            <!-- Save and Back Buttons -->
-                            <div class="row">
-                                <div class="col-md-6 offset-md-6">
-                                    <div class="text-end">
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <!-- Profile Picture -->
-                <div class="card mb-3">
-                    <div class="card-header bg-primary text-white">
-                        Profile Picture
-                    </div>
-                    <div class="card-body text-center">
-                        @if(isset($info->image))
-                            <img src="{{asset('storage/'.$info->image)}}" alt="Profile Picture" class="img-fluid rounded-circle" style="max-width: 300px;" />
-
-                            <!-- Display profile picture or initials -->
-                        @endif<!-- Display profile picture or initials -->
-                        <div id="profile-display">
-                            <!-- JavaScript will populate this div -->
                         </div>
                     </div>
                 </div>
-            </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    // Check if profile picture is set
-                    {{--var profilePic = "{{ $profilePic }}"; // Replace "{{ $profilePic }}" with your server-side variable--}}
-
-                    // If profile picture is set, display it
-                    if (profilePic) {
-                        document.getElementById('profile-display').innerHTML = '<img src="' + profilePic + '" alt="Profile Picture" class="img-fluid rounded-circle" style="max-width: 200px;">';
-                    } else {
-                        // If profile picture is not set, display first name and last name initials
-                        var firstName = "John"; // Replace with the actual first name
-                        var lastName = "Doe"; // Replace with the actual last name
-                        var initials = firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
-                        document.getElementById('profile-display').innerHTML = '<div style="font-size: 48px;">' + initials + '</div>';
-                    }
-                });
-            </script>
-            <div class="row">
-                <div class="col-md-8 md-6">
-                    <div class="text-end">
-                        <a href="{{ route('my_profile', ['id' => $info->id]) }}" class="btn btn-secondary me-2">Back</a>
-
-                    </div>
-                </div>
-            </div>
-
+            @endforeach
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
 <!-- Article End -->
 
 
@@ -292,8 +210,8 @@
             </div>
             <div class="col-lg-4 col-md-6">
                 <h4 class="text-primary mb-4">Quick Links</h4>
-                <a class="btn btn-link" href="{{route('abouts',['id'=>$info->id])}}">About Us</a>
-                <a class="btn btn-link" href="{{route('contacts',['id'=>$info->id])}}">Contact Us</a>
+                <a class="btn btn-link" href="">About Us</a>
+                <a class="btn btn-link" href="">Contact Us</a>
                 <a class="btn btn-link" href="">Our Services</a>
                 <a class="btn btn-link" href="">Terms & Condition</a>
                 <a class="btn btn-link" href="">Support</a>
@@ -358,4 +276,3 @@
 </body>
 
 </html>
-

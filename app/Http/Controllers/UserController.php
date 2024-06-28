@@ -26,8 +26,11 @@ class UserController extends Controller
             ->where('user_ip_address',$ip)
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         return view('user.welcome',['id' => $id,'info'=>$user,
-            'category'=>$category,'product'=>$product,'count'=>$count]);
+            'category'=>$category,'product'=>$product,'count'=>$count,'mar'=>$mar,
+            'contact'=>$contact]);
     }
 
     public function login(Request $request)
@@ -41,12 +44,15 @@ class UserController extends Controller
         $id = \request('id');
         $user = Customer_Info::find($id);
         $ip = request()->ip();
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         $category = DB::table('categories')->where('status','Active')->get();
         $count = DB::table('orders')
             ->where('user_ip_address',$ip)
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('user.product',['id' => $id,'info'=>$user,'category'=>$category,'count'=>$count]);
+        return view('user.product',['id' => $id,'info'=>$user,'category'=>$category,'count'=>$count,
+            'mar'=>$mar,'contact'=>$contact]);
     }
 
     public function store()
@@ -55,11 +61,14 @@ class UserController extends Controller
         $user = Customer_Info::find($id);
         $ip = request()->ip();
         $product = DB::table('products')->get();
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         $count = DB::table('orders')
             ->where('user_ip_address',$ip)
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('user.store',['id' => $id,'info'=>$user,'product'=>$product,'count'=>$count]);
+        return view('user.store',['id' => $id,'info'=>$user,'product'=>$product,'count'=>$count,
+            'mar'=>$mar,'contact'=>$contact]);
     }
 
     public function contact()
@@ -67,11 +76,14 @@ class UserController extends Controller
         $id = \request('id');
         $user = Customer_Info::find($id);
         $ip = request()->ip();
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         $count = DB::table('orders')
             ->where('user_ip_address',$ip)
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('user.contact',['id' => $id,'info'=>$user,'count'=>$count]);
+        return view('user.contact',['id' => $id,'info'=>$user,'count'=>$count,
+            'mar'=>$mar,'contact'=>$contact]);
     }
 
     public function testimonial()
@@ -79,34 +91,66 @@ class UserController extends Controller
         $id = \request('id');
         $user = Customer_Info::find($id);
         $ip = request()->ip();
+        $testimonial = DB::table('testimonials')->get();
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         $count = DB::table('orders')
             ->where('user_ip_address',$ip)
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('user.testimonial',['id' => $id,'info'=>$user,'count'=>$count]);
+        return view('user.testimonial',['id' => $id,'info'=>$user,
+            'count'=>$count,'testimonial'=>$testimonial,'mar'=>$mar,'contact'=>$contact]);
     }
 
     public function blog()
     {
         $id = \request('id');
+        $admin = \request('blog');
+//        dd($admin);
         $user = Customer_Info::find($id);
+        $blog = DB::table('blogs')->find($admin);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         $ip = request()->ip();
         $count = DB::table('orders')
             ->where('user_ip_address',$ip)
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('user.blog',['id' => $id,'info'=>$user,'count'=>$count]);
+        return view('user.blog',['id' => $id,'info'=>$user,'count'=>$count,
+            'blogs'=>$blog,'mar'=>$mar,'contact'=>$contact]);
+    }
+
+    public function blogList()
+    {
+        $text = DB::table('marqueetexts')->first();
+        $blogs = DB::table('blogs')->get();
+        $id = \request('id');
+        $user = Customer_Info::find($id);
+        $ip = request()->ip();
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        $count = DB::table('orders')
+            ->where('user_ip_address',$ip)
+            ->where('user_id',$user->id)
+            ->where('order_status','Pending')->count();
+        return view('user.blog-list',['text'=>$text,'blogs'=>$blogs,
+            'id' => $id,'info'=>$user,'count'=>$count,
+            'mar'=>$mar,'contact'=>$contact]);
     }
 
     public function about(){
         $id = \request('id');
         $user = Customer_Info::find($id);
+        $about = DB::table('abouts')->first();
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         $ip = request()->ip();
         $count = DB::table('orders')
             ->where('user_ip_address',$ip)
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('user.about',['id' => $id,'info'=>$user,'count'=>$count]);
+        return view('user.about',['id' => $id,'info'=>$user,
+            'count'=>$count,'about'=>$about,'mar'=>$mar,'contact'=>$contact]);
     }
 
     public function feature()
@@ -136,18 +180,22 @@ class UserController extends Controller
         $user = Customer_Info::find($id);
         $product = DB::table('products')->find($prod_id);
         $ip = request()->ip();
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         $count = DB::table('orders')
             ->where('user_ip_address',$ip)
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('user.single-product',['id' => $id,'info'=>$user,'product'=>$product,'count'=>$count]);
+        return view('user.single-product',['id' => $id,'info'=>$user,'product'=>$product,'count'=>$count,
+            'mar'=>$mar,'contact'=>$contact]);
     }
 
     public function cart(Request $request)
     {
         $ip = $request->ip();
         $user = Auth::user();
-
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         if ($user) {
             $order = Order::where('user_ip_address', $ip)
                 ->where('user_id', $user->id)
@@ -169,7 +217,8 @@ class UserController extends Controller
             $count = count($cart);
         }
 
-        return view('user.cart', ['info' => $user, 'order' => $order, 'count' => $count]);
+        return view('user.cart', ['info' => $user, 'order' => $order, 'count' => $count,
+            'mar'=>$mar,'contact'=>$contact]);
     }
 
 
@@ -178,6 +227,8 @@ class UserController extends Controller
     {
         $id = \request('id');
         $user = Customer_Info::find($id);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         $product = DB::table('orders')->where('user_id',$user->id)
             ->whereIn('order_status',['Processing','Shipping','Delivered'])
             ->join('products','orders.product_id','=','products.id')
@@ -188,19 +239,23 @@ class UserController extends Controller
             ->where('user_ip_address',$ip)
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('user.order-history',['id' => $id,'info'=>$user,'product'=>$product,'count'=>$count]);
+        return view('user.order-history',['id' => $id,'info'=>$user,'product'=>$product,'count'=>$count,
+            'mar'=>$mar,'contact'=>$contact]);
     }
 
     public function my_profile()
     {
         $id = \request('id');
         $user = Customer_Info::find($id);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         $ip = request()->ip();
         $count = DB::table('orders')
             ->where('user_ip_address',$ip)
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('user.my-profile',['id' => $id,'info'=>$user,'count'=>$count]);
+        return view('user.my-profile',['id' => $id,'info'=>$user,'count'=>$count,
+            'mar'=>$mar,'contact'=>$contact]);
     }
 
     public function account_settings()
@@ -208,11 +263,14 @@ class UserController extends Controller
         $id = \request('id');
         $user = Customer_Info::find($id);
         $ip = request()->ip();
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         $count = DB::table('orders')
             ->where('user_ip_address',$ip)
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('user.account-settings',['id' => $id,'info'=>$user,'count'=>$count]);
+        return view('user.account-settings',['id' => $id,'info'=>$user,'count'=>$count,
+            'mar'=>$mar,'contact'=>$contact]);
     }
 
     public function upload_user_data(Request $request)
@@ -320,6 +378,8 @@ class UserController extends Controller
 
         // Find customer info by id
         $user = Customer_Info::find($id);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
 
         // Check if customer info was found
         if (!$user) {
@@ -335,7 +395,8 @@ class UserController extends Controller
             ->where('user_ip_address',$ip)
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('user.checkout',['id' => $id,'info'=>$user,'product'=>$product,'count'=>$count]);
+        return view('user.checkout',['id' => $id,'info'=>$user,'product'=>$product,'count'=>$count,
+            'mar'=>$mar,'contact'=>$contact]);
     }
 
     public function invoice()

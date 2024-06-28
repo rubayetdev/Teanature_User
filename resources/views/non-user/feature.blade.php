@@ -67,7 +67,8 @@
 
 
     <!-- Navbar Start -->
-    <marquee behavior="scroll" direction="left">Your Marquee Text Here</marquee>
+    <marquee behavior="scroll" direction="left" style="font-family: Space Grotesk, sans-serif; color:@if(isset($text->color)) {{$text->color}} @endif ">@if(isset($text->text)) {{$text->text}} @endif
+    </marquee>
 
     <!-- Navbar Start -->
     <div class="container-fluid bg-white sticky-top">
@@ -90,10 +91,10 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Explore</a>
                             <div class="dropdown-menu bg-light rounded-0 m-0">
-                                <a href="{{route('feature')}}" class="dropdown-item active">Features</a>
+{{--                                <a href="{{route('feature')}}" class="dropdown-item active">Features</a>--}}
                                 <a href="{{route('about')}}" class="dropdown-item">About</a>
 {{--                                <a href="{{route('store')}}" class="dropdown-item">Store</a>--}}
-                                <a href="{{route('blog')}}" class="dropdown-item">Blog Article</a>
+                                <a href="{{route('blog-list')}}" class="dropdown-item">Blog Article</a>
                                 <a href="{{route('contact')}}" class="dropdown-item">Contact</a>
                                 <a href="{{route('testimonial')}}" class="dropdown-item">Testimonial</a>
                                 <a href="{{route('page')}}" class="dropdown-item">404 Page</a>

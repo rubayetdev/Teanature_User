@@ -13,8 +13,10 @@ class NonUserController extends Controller
     {
         $category = DB::table('categories')->where('status','Active')->inRandomOrder()->take(3)->get();
         $product = DB::table('products')->inRandomOrder()->take(3)->get();
+        $text = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         return view('non-user.welcome',[
-            'category'=>$category,'product'=>$product]);
+            'category'=>$category,'product'=>$product,'text'=>$text,'contact'=>$contact]);
     }
 
     public function login(Request $request)
@@ -26,37 +28,62 @@ class NonUserController extends Controller
     public function product()
     {
         $category = DB::table('categories')->where('status','Active')->get();
-        return view('non-user.product',['category'=>$category]);
+        $text = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('non-user.product',['category'=>$category,'text'=>$text,'contact'=>$contact]);
     }
 
     public function store()
     {
         $product = DB::table('products')->get();
-        return view('non-user.store',['product'=>$product]);
+        $text = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('non-user.store',['product'=>$product,'text'=>$text,'contact'=>$contact]);
     }
 
     public function contact()
     {
-        return view('non-user.contact');
+        $text = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('non-user.contact',['text'=>$text,'contact'=>$contact]);
     }
 
     public function testimonial()
     {
-        return view('non-user.testimonial');
+        $text = DB::table('marqueetexts')->first();
+        $testimonials = DB::table('testimonials')->get();
+        $contact = DB::table('contacts')->first();
+        return view('non-user.testimonial',['text'=>$text,'testimonials'=>$testimonials,'contact'=>$contact]);
     }
 
     public function blog()
     {
-        return view('non-user.blog');
+        $id = \request('id');
+        $blogs = DB::table('blogs')->where('id',$id)->first();
+        $text = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('non-user.blog',['text'=>$text,'blogs'=>$blogs,'contact'=>$contact]);
+    }
+
+    public function blogList()
+    {
+        $text = DB::table('marqueetexts')->first();
+        $blogs = DB::table('blogs')->get();
+        $contact = DB::table('contacts')->first();
+        return view('non-user.blog-list',['text'=>$text,'blogs'=>$blogs,'contact'=>$contact]);
     }
 
     public function about(){
-        return view('non-user.about');
+        $text = DB::table('marqueetexts')->first();
+        $about = DB::table('abouts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('non-user.about',['text'=>$text,'about'=>$about,'contact'=>$contact]);
     }
 
     public function feature()
     {
-        return view('non-user.feature');
+        $text = DB::table('marqueetexts')->first();
+        return view('non-user.feature',['text'=>$text]);
     }
 
     public function page()
@@ -66,9 +93,11 @@ class NonUserController extends Controller
 
     public function single_product()
     {
+        $text = DB::table('marqueetexts')->first();
         $prod = \request('id');
         $products = DB::table('products')->where('id',$prod)->first();
-        return view('non-user.single-product',['products'=>$products]);
+        $contact = DB::table('contacts')->first();
+        return view('non-user.single-product',['products'=>$products,'text'=>$text,'contact'=>$contact]);
     }
 
     public function create_orders(Request $request)
@@ -108,8 +137,10 @@ class NonUserController extends Controller
 
     public function viewCart()
     {
+        $text = DB::table('marqueetexts')->first();
         $cart = Session::get('cart', []);
-        return view('non-user.cartview', compact('cart'));
+        $contact = DB::table('contacts')->first();
+        return view('non-user.cartview', ['cart'=>$cart,'text'=>$text,'contact'=>$contact]);
     }
 
     public function removeFromCart(Request $request)

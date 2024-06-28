@@ -84,7 +84,8 @@
 
 
     <!-- Navbar Start -->
-    <marquee behavior="scroll" direction="left">Your Marquee Text Here</marquee>
+    <marquee behavior="scroll" direction="left" style="font-family: Space Grotesk, sans-serif;color: @if(isset($mar->color)){{$mar->color}}@endif">@if(isset($mar->text)){{$mar->text}}@endif
+    </marquee>
 
     <!-- Navbar Start -->
     <div class="container-fluid bg-white sticky-top">
@@ -106,13 +107,13 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Explore</a>
                             <div class="dropdown-menu bg-light rounded-0 m-0">
-                                <a href="{{route('features',['id'=>$info->id])}}" class="dropdown-item">Features</a>
+{{--                                <a href="{{route('features',['id'=>$info->id])}}" class="dropdown-item">Features</a>--}}
                                 <a href="{{route('abouts',['id'=>$info->id])}}" class="dropdown-item">About</a>
 {{--                                <a href="{{route('stores',['id'=>$info->id])}}" class="dropdown-item">Store</a>--}}
-                                <a href="{{route('blogs',['id'=>$info->id])}}" class="dropdown-item active">Blog Article</a>
+                                <a href="{{route('Listblog',['id'=>$info->id])}}" class="dropdown-item active">Blog Article</a>
                                 <a href="{{route('contacts',['id'=>$info->id])}}" class="dropdown-item">Contact</a>
                                 <a href="{{route('testimonials',['id'=>$info->id])}}" class="dropdown-item">Testimonial</a>
-                                <a href="{{route('pages',['id'=>$info->id])}}" class="dropdown-item">404 Page</a>
+{{--                                <a href="{{route('pages',['id'=>$info->id])}}" class="dropdown-item">404 Page</a>--}}
                             </div>
                         </div>
 
@@ -140,7 +141,7 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
-            <h1 class="display-2 text-dark mb-4 animated slideInDown">Acticle</h1>
+            <h1 class="display-2 text-dark mb-4 animated slideInDown">Blog</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -157,20 +158,12 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-5">
-                <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
-                    <img class="img-fluid" src="img/article.jpg" alt="">
-                </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                     <div class="section-title">
                         <p class="fs-5 fw-medium fst-italic text-primary">Featured Acticle</p>
-                        <h1 class="display-6">The history of tea leaf in the world</h1>
+                        <h1 class="display-6">{{$blogs->title}}</h1>
                     </div>
-                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et
-                        eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet
-                    </p>
-                    <p class="mb-4">Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et
-                        sit, sed stet lorem sit clita duo justo magna. Tempor erat elitr rebum at clita.</p>
-                    <a href="" class="btn btn-primary rounded-pill py-3 px-5">Read More</a>
+                    {!! $blogs->slug !!}
                 </div>
             </div>
         </div>
@@ -182,31 +175,31 @@
     <div class="container-fluid bg-dark footer mt-5 py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <h4 class="text-primary mb-4">Our Office</h4>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt text-primary me-3"></i>+012 345 67890</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>info@example.com</p>
-                    <div class="d-flex pt-3">
-                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i
-                                class="fab fa-twitter"></i></a>
-                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i
-                                class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i
-                                class="fab fa-youtube"></i></a>
-                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i
-                                class="fab fa-linkedin-in"></i></a>
-                    </div>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>@if(isset($contact->address)) {{$contact->address}} @endif</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt text-primary me-3"></i>@if(isset($contact->fphone)) {{$contact->fphone}} @endif</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>@if(isset($contact->femail)) {{$contact->femail}} @endif</p>
+                    {{--                <div class="d-flex pt-3">--}}
+                    {{--                    <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i--}}
+                    {{--                            class="fab fa-twitter"></i></a>--}}
+                    {{--                    <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i--}}
+                    {{--                            class="fab fa-facebook-f"></i></a>--}}
+                    {{--                    <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i--}}
+                    {{--                            class="fab fa-youtube"></i></a>--}}
+                    {{--                    <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i--}}
+                    {{--                            class="fab fa-linkedin-in"></i></a>--}}
+                    {{--                </div>--}}
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <h4 class="text-primary mb-4">Quick Links</h4>
-                    <a class="btn btn-link" href="">About Us</a>
-                    <a class="btn btn-link" href="">Contact Us</a>
+                    <a class="btn btn-link" href="{{route('abouts',['id'=>$info->id])}}">About Us</a>
+                    <a class="btn btn-link" href="{{route('contacts',['id'=>$info->id])}}">Contact Us</a>
                     <a class="btn btn-link" href="">Our Services</a>
                     <a class="btn btn-link" href="">Terms & Condition</a>
                     <a class="btn btn-link" href="">Support</a>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <h4 class="text-primary mb-4">Business Hours</h4>
                     <p class="mb-1">Monday - Friday</p>
                     <h6 class="text-light">09:00 am - 07:00 pm</h6>
@@ -215,16 +208,16 @@
                     <p class="mb-1">Sunday</p>
                     <h6 class="text-light">Closed</h6>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <h4 class="text-primary mb-4">Newsletter</h4>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-                    <div class="position-relative w-100">
-                        <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text"
-                            placeholder="Your email">
-                        <button type="button"
-                            class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
-                    </div>
-                </div>
+                {{--            <div class="col-lg-3 col-md-6">--}}
+                {{--                <h4 class="text-primary mb-4">Newsletter</h4>--}}
+                {{--                <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>--}}
+                {{--                <div class="position-relative w-100">--}}
+                {{--                    <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text"--}}
+                {{--                           placeholder="Your email">--}}
+                {{--                    <button type="button"--}}
+                {{--                            class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>--}}
+                {{--                </div>--}}
+                {{--            </div>--}}
             </div>
         </div>
     </div>

@@ -24,6 +24,8 @@ Route::get('/testimonials',[NonUserController::class,'testimonial'])->name('test
 
 Route::get('/blog',[NonUserController::class,'blog'])->name('blog');
 
+Route::get('/blog-list',[NonUserController::class,'blogList'])->name('blog-list');
+
 Route::get('/about',[NonUserController::class,'about'])->name('about');
 
 Route::get('/feature',[NonUserController::class,'feature'])->name('feature');
@@ -79,6 +81,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home/contact',[UserController::class,'contact'])->name('contacts');
 
     Route::get('/home/testimonials',[UserController::class,'testimonial'])->name('testimonials');
+
+    Route::get('/home/blogList',[UserController::class,'blogList'])->name('Listblog');
 
     Route::get('/home/blog',[UserController::class,'blog'])->name('blogs');
 
@@ -143,6 +147,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/depo/contact',[DepoController::class,'contact'])->name('depo-contacts');
 
     Route::get('/depo/testimonials',[DepoController::class,'testimonial'])->name('depo-testimonials');
+
+    Route::get('/depo/blogList',[DepoController::class,'blogList'])->name('depo-blogList');
 
     Route::get('/depo/blog',[DepoController::class,'blog'])->name('depo-blogs');
 

@@ -26,8 +26,11 @@ class DepoController extends Controller
             ->where('roles','depo')
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
         return view('depo.welcome',['id'=>$id,'info'=>$user,
-            'category'=>$category,'product'=>$product,'count'=>$count]);
+            'category'=>$category,'product'=>$product,'count'=>$count,'mar'=>$mar,
+            'contact'=>$contact]);
     }
 
     public function product()
@@ -39,7 +42,10 @@ class DepoController extends Controller
             ->where('roles','depo')
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('depo.product',['id' => $id,'info'=>$user,'count'=>$count,'category'=>$category]);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('depo.product',['id' => $id,'info'=>$user,'count'=>$count,'category'=>$category,
+            'mar'=>$mar, 'contact'=>$contact]);
     }
 
     public function store()
@@ -52,7 +58,10 @@ class DepoController extends Controller
             ->where('roles','depo')
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('depo.store',['id' => $id,'info'=>$user,'count'=>$count,'product'=>$product]);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('depo.store',['id' => $id,'info'=>$user,'count'=>$count,'product'=>$product,
+            'mar'=>$mar, 'contact'=>$contact]);
     }
 
     public function contact()
@@ -63,7 +72,9 @@ class DepoController extends Controller
             ->where('roles','depo')
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('depo.contact',['id' => $id,'info'=>$user,'count'=>$count]);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('depo.contact',['id' => $id,'info'=>$user,'count'=>$count,'mar'=>$mar, 'contact'=>$contact]);
     }
 
     public function testimonial()
@@ -74,10 +85,13 @@ class DepoController extends Controller
             ->where('roles','depo')
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('depo.testimonial',['id' => $id,'info'=>$user,'count'=>$count]);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        $testimonials = DB::table('testimonials')->get();
+        return view('depo.testimonial',['id' => $id,'info'=>$user,'testimonials'=>$testimonials,'count'=>$count,'mar'=>$mar, 'contact'=>$contact]);
     }
 
-    public function blog()
+    public function blogList()
     {
         $id = \request('id');
         $user = DepoInfo::find($id);
@@ -85,7 +99,24 @@ class DepoController extends Controller
             ->where('roles','depo')
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('depo.blog',['id' => $id,'info'=>$user,'count'=>$count]);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        $blogs = DB::table('blogs')->get();
+        return view('depo.blog-list',['id' => $id,'info'=>$user,'blogs'=>$blogs,'count'=>$count,'mar'=>$mar, 'contact'=>$contact]);
+    }
+    public function blog()
+    {
+        $id = \request('id');
+        $blog = \request('blog');
+        $user = DepoInfo::find($id);
+        $count = DB::table('orders')
+            ->where('roles','depo')
+            ->where('user_id',$user->id)
+            ->where('order_status','Pending')->count();
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        $blogs = DB::table('blogs')->where('id',$blog)->first();
+        return view('depo.blog',['id' => $id,'info'=>$user,'count'=>$count,'blogs'=>$blogs,'mar'=>$mar, 'contact'=>$contact]);
     }
 
     public function about(){
@@ -95,7 +126,11 @@ class DepoController extends Controller
             ->where('roles','depo')
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('depo.about',['id' => $id,'info'=>$user,'count'=>$count]);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        $about = DB::table('abouts')->first();
+        return view('depo.about',['id' => $id,'info'=>$user,'count'=>$count,
+            'mar'=>$mar, 'contact'=>$contact,'about'=>$about]);
     }
 
     public function feature()
@@ -130,7 +165,9 @@ class DepoController extends Controller
             ->where('roles','depo')
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('depo.single-product',['id' => $id,'info'=>$user,'product'=>$product,'count'=>$count]);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('depo.single-product',['id' => $id,'info'=>$user,'product'=>$product,'count'=>$count,'mar'=>$mar, 'contact'=>$contact]);
     }
 
     public function cart(Request $request)
@@ -145,7 +182,9 @@ class DepoController extends Controller
             ->where('roles','depo')
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('depo.cart',['id' => $id,'info'=>$user,'order'=>$order,'count'=>$count]);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('depo.cart',['id' => $id,'info'=>$user,'order'=>$order,'count'=>$count,'mar'=>$mar, 'contact'=>$contact]);
     }
 
     public function order_history()
@@ -161,7 +200,9 @@ class DepoController extends Controller
             ->join('products','orders.product_id','=','products.id')
             ->select('orders.*','products.*','orders.price as total_price')
             ->get();
-        return view('depo.order-history',['id' => $id,'info'=>$user,'count'=>$count,'product'=>$product]);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('depo.order-history',['id' => $id,'info'=>$user,'count'=>$count,'product'=>$product,'mar'=>$mar, 'contact'=>$contact]);
     }
 
     public function my_profile()
@@ -173,7 +214,9 @@ class DepoController extends Controller
             ->where('roles','depo')
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('depo.my-profile',['id' => $profile,'info'=>$user,'count'=>$count]);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('depo.my-profile',['id' => $profile,'info'=>$user,'count'=>$count,'mar'=>$mar, 'contact'=>$contact]);
     }
 
     public function account_settings()
@@ -185,7 +228,9 @@ class DepoController extends Controller
             ->where('roles','depo')
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('depo.account-settings',['id' => $profile,'info'=>$user,'count'=>$count]);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('depo.account-settings',['id' => $profile,'info'=>$user,'count'=>$count,'mar'=>$mar, 'contact'=>$contact]);
     }
 
     public function upload_depo_data(Request $request)
@@ -231,6 +276,8 @@ class DepoController extends Controller
             ->where('roles','depo')
             ->where('user_id',$user->id)
             ->where('order_status','Pending')->count();
-        return view('depo.checkout',['id' => $id,'info'=>$user,'product'=>$product,'users'=>$users,'count'=>$count]);
+        $mar = DB::table('marqueetexts')->first();
+        $contact = DB::table('contacts')->first();
+        return view('depo.checkout',['id' => $id,'info'=>$user,'product'=>$product,'users'=>$users,'count'=>$count,'mar'=>$mar, 'contact'=>$contact]);
     }
 }
