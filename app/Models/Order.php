@@ -26,4 +26,6 @@ class Order extends Model
             'zip_code',
             'roles',
         ];
+
+
 }

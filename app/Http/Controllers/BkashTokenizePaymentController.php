@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Karim007\LaravelBkashTokenize\Facade\BkashPaymentTokenize;
 use Karim007\LaravelBkashTokenize\Facade\BkashRefundTokenize;
-
+use App\Mail\InvoiceMail;
 class BkashTokenizePaymentController extends Controller
 {
     public function index()
@@ -30,7 +33,7 @@ class BkashTokenizePaymentController extends Controller
         $request->session()->put('invoice',$invoice);
 
         if ($service == 'COD') {
-            Order::where('user_id', $userid)->where('order_status', 'Pending')->update([
+          $order = Order::where('user_id', $userid)->where('order_status', 'Pending')->update([
                 'invoice_id' => $invoice,
                 'order_status' => 'Processing',
                 'payment_method' => 'COD',
@@ -38,6 +41,30 @@ class BkashTokenizePaymentController extends Controller
                 'shipping_city' => $projectid,
                 'zip_code' => $projectname,
             ]);
+
+            if ($order) {
+                $updatedOrder = Order::where('user_id', $userid)
+                    ->where('invoice_id', $invoice)
+                    ->first();
+
+//                dd($updatedOrder);
+                // Fetch all admin email addresses from the `admins` table
+                $adminEmails = DB::table('admins')->pluck('email')->toArray();
+
+                //dd($updatedOrder->user->email);
+
+
+                $userEmail = User::where('id',$updatedOrder->user_id)->first();
+
+
+                // Merge user email with admin emails
+                $recipients = array_merge([$userEmail->email], $adminEmails);
+
+                // Send email to all recipients
+                foreach ($recipients as $email) {
+                    Mail::to($email)->send(new InvoiceMail($updatedOrder));
+                }
+            }
 
             return redirect()->route('invoice',['id'=>$invoice]);
         }
@@ -127,11 +154,30 @@ class BkashTokenizePaymentController extends Controller
                  * paymentID and trxID
                  * */
 
-                Order::where('order_status','Pending')->where('user_id',$userid)->where('invoice_id',$projectid)->update([
+               $order = Order::where('order_status','Pending')->where('user_id',$userid)->where('invoice_id',$projectid)->update([
                     'transaction_id'=>$response['trxID'],
                     'payment_method'=>'bKash',
                     'order_status' => 'Processing',
                 ]);
+                if ($order) {
+                    $updatedOrder = Order::where('user_id', $userid)
+                        ->where('invoice_id', $projectid)
+                        ->first();
+
+                    // Fetch all admin email addresses from the `admins` table
+                    $adminEmails = DB::table('admins')->pluck('email')->toArray();
+
+                    // Fetch the user's email
+                    $userEmail = User::where('id',$updatedOrder->user_id)->first();
+
+                    // Merge user email with admin emails
+                    $recipients = array_merge([$userEmail], $adminEmails);
+
+                    // Send email to all recipients
+                    foreach ($recipients as $email) {
+                        Mail::to($email)->send(new InvoiceMail($updatedOrder));
+                    }
+                }
                 return redirect()->route('invoice',['id'=>$projectid]);
             }
             return BkashPaymentTokenize::failure($response['statusMessage']);

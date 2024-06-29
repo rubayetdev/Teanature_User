@@ -191,17 +191,16 @@
                 <h1 class="display-6">Want to stay healthy? Choose tea taste</h1>
             </div>
             <div class="row g-4">
-
                 @foreach($product as $prods)
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="store-item position-relative text-center">
                             <img class="img-fluid" src="{{asset('storage/'.$prods->image)}}" alt="">
                             <!-- Discount overlay -->
-                            @if(isset($prods->discount))
-                                <div class="discount-overlay">
-                                    <span class="discount">{{$prods->discount}}% OFF</span>
-                                </div>
-                            @endif
+                            {{--                        @if(isset($prods->discount))--}}
+                            {{--                            <div class="discount-overlay">--}}
+                            {{--                                <span class="discount">{{$prods->discount}}% OFF</span>--}}
+                            {{--                            </div>--}}
+                            {{--                        @endif--}}
                             <div class="p-4">
                                 {{--                        <div class="text-center mb-3">--}}
                                 {{--                            <small class="fa fa-star text-primary"></small>--}}
@@ -212,19 +211,20 @@
                                 {{--                        </div>--}}
                                 <h4 class="mb-3">{{$prods->name}}</h4>
                                 <p>{!! $prods->description !!}</p>
+                                <p>Quantity per Carton: <strong>{{$prods->cartoonqty}} pcs</strong> </p>
                                 <!-- Previous price with strikethrough -->
-                                @if(isset($prods->previous_price))
-                                    <div class="previous-price">
-                                        <span class="text-secondary">{{$prods->previous_price}}৳</span>
-                                    </div>
-                                @endif
+                                {{--                            @if(isset($prods->previous_price))--}}
+                                {{--                                <div class="previous-price">--}}
+                                {{--                                    <span class="text-secondary">{{$prods->previous_price}}৳</span>--}}
+                                {{--                                </div>--}}
+                                {{--                            @endif--}}
                                 <!-- New price -->
-                                <h4 class="text-primary">{{$prods->price}}৳</h4>
+                                <h4 class="text-primary">Per Box: {{$prods->cartoonprice}}৳</h4>
                             </div>
                             <div class="store-overlay">
                                 <a href="{{route('depo-single-products',['prod_id'=>$prods->id,'id'=>$info->id])}}" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i
                                         class="fa fa-arrow-right ms-2"></i></a>
-                                <form action="{{route('create_order')}}" method="post">
+                                <form action="{{route('create_order')}}" method="POST">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{$info->id}}">
                                     <input type="hidden" name="product_id" value="{{$prods->id}}">
@@ -233,6 +233,8 @@
                                     <button type="submit" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart<i
                                             class="fa fa-cart-plus ms-2"></i></button>
                                 </form>
+                                {{--                            <a href="{{route('depo-cart',['id'=>$info->id])}}" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart <i--}}
+                                {{--                                    class="fa fa-cart-plus ms-2"></i></a>--}}
                             </div>
                         </div>
                     </div>
@@ -241,9 +243,9 @@
 
 
 
-                {{--                <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">--}}
-                {{--                    <a href="" class="btn btn-primary rounded-pill py-3 px-5">View More Products</a>--}}
-                {{--                </div>--}}
+                <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <a href="" class="btn btn-primary rounded-pill py-3 px-5">View More Products</a>
+                </div>
             </div>
         </div>
     </div>
